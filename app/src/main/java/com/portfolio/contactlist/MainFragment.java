@@ -25,9 +25,7 @@ public class MainFragment extends Fragment
     private FloatingActionButton fab;
 
     //CONSTRUCTOR
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
+    public static MainFragment newInstance() { return new MainFragment(); }
 
     @Nullable
     @Override
@@ -54,12 +52,24 @@ public class MainFragment extends Fragment
             public void onClick(View view)
             {
                 String name = contactName.getText().toString();
+                String phone = contactPhone.getText().toString();
+                String email = contactEmail.getText().toString();
                 if (!name.equals(""))
                 {
-                    findContact(name);
+                    mViewModel.findName(name);
                     clearFields();
                 }
-                else { MainActivity.toaster(getContext(), "You must enter a name to search for"); }
+                else if (!phone.equals(""))
+                {
+                    mViewModel.findPhone(phone);
+                    clearFields();
+                }
+                else if (!email.equals(""))
+                {
+                    mViewModel.findEmail(email);
+                    clearFields();
+                }
+                else { MainActivity.toaster(getContext(), "You must enter criteria to search for"); }
             }
         });
     }
@@ -81,7 +91,7 @@ public class MainFragment extends Fragment
             mViewModel.insertContact(contact);
         }
     }
-    public void findContact (String name) { mViewModel.findContact(name); }
+    public void findName (String name) { mViewModel.findName(name); }
     public void sort(boolean reverse) { adapter.sort(reverse); }
 
     //OBSERVER SETUP
@@ -105,7 +115,7 @@ public class MainFragment extends Fragment
                 }
                 else
                 {
-                    mViewModel.findContact("");
+                    mViewModel.findName("");
                     MainActivity.toaster(getContext(),"No matches found");
                 }
             }

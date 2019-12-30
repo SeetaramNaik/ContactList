@@ -31,9 +31,17 @@ public class MainViewModel extends AndroidViewModel
     {
         repository.insertContact(contact);
     }
-    public void findContact(String name)
+    public void findName(String name)
     {
-        repository.findContact(name);
+        repository.findName(name);
+    }
+    public void findPhone(String phone)
+    {
+        repository.findPhone(phone);
+    }
+    public void findEmail(String email)
+    {
+        repository.findEmail(email);
     }
     public void deleteContact(String name) { repository.deleteContact(name); }
 }

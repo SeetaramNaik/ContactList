@@ -13,7 +13,13 @@ public interface ContactDao
     void insertContact(Contact product);
 
     @Query("SELECT * FROM contact_list WHERE contactName LIKE ('%'||:name||'%') ORDER BY contactName")
-    List<Contact> findContact(String name);
+    List<Contact> findName(String name);
+
+    @Query("SELECT * FROM contact_list WHERE contactPhone LIKE ('%'||:phone||'%') ORDER BY contactPhone")
+    List<Contact> findPhone(String phone);
+
+    @Query("SELECT * FROM contact_list WHERE contactEmail LIKE ('%'||:email||'%') ORDER BY contactEmail")
+    List<Contact> findEmail(String email);
 
     @Query("DELETE FROM contact_list WHERE contactName = :name")
     void deleteContact(String name);

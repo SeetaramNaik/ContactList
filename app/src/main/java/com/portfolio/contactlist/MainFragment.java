@@ -54,22 +54,12 @@ public class MainFragment extends Fragment
                 String name = contactName.getText().toString();
                 String phone = contactPhone.getText().toString();
                 String email = contactEmail.getText().toString();
-                if (!name.equals(""))
-                {
-                    mViewModel.findName(name);
-                    clearFields();
-                }
-                else if (!phone.equals(""))
-                {
-                    mViewModel.findPhone(phone);
-                    clearFields();
-                }
-                else if (!email.equals(""))
-                {
-                    mViewModel.findEmail(email);
-                    clearFields();
-                }
+
+                if (!name.equals("")) { mViewModel.findName(name); }
+                else if (!phone.equals("")) { mViewModel.findPhone(phone); }
+                else if (!email.equals("")) { mViewModel.findEmail(email); }
                 else { MainActivity.toaster(getContext(), "You must enter criteria to search for"); }
+                clearFields();
             }
         });
     }
@@ -83,7 +73,6 @@ public class MainFragment extends Fragment
         contactName.requestFocus();
     }
 
-    //INSERT, FIND, SORT
     public void insertContact (Contact contact)
     {
         if (!contact.getContactName().equals("") && !contact.getContactPhone().equals(""))
@@ -91,7 +80,8 @@ public class MainFragment extends Fragment
             mViewModel.insertContact(contact);
         }
     }
-    public void findName (String name) { mViewModel.findName(name); }
+
+    //Sorts the display adapter, not the data
     public void sort(boolean reverse) { adapter.sort(reverse); }
 
     //OBSERVER SETUP

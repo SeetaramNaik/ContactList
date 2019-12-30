@@ -5,16 +5,16 @@ import java.util.List;
 import android.arch.lifecycle.MutableLiveData;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.util.Log;
 
 public class ContactRepository
 {
-    private MutableLiveData<List<Contact>> searchResults = new MutableLiveData<>();
-    private LiveData<List<Contact>> allContacts;
-    private ContactDao contactDao;
     private static final String NAME = "name";
     private static final String PHONE = "phone";
     private static final String EMAIL = "email";
+
+    private MutableLiveData<List<Contact>> searchResults = new MutableLiveData<>();
+    private LiveData<List<Contact>> allContacts;
+    private ContactDao contactDao;
 
     //CONSTRUCTOR
     public ContactRepository(Application application)
@@ -25,7 +25,7 @@ public class ContactRepository
         allContacts = contactDao.getAllContacts();
     }
 
-    //INSERT, FIND, DELETE
+    //ASYNC CALLS (insert, delete, find)
     public void insertContact(Contact newContact)
     {
         InsertAsyncTask task = new InsertAsyncTask(contactDao);
@@ -55,18 +55,20 @@ public class ContactRepository
         task.execute(email);
     }
 
-
     //GETTERS & SETTERS
     public LiveData<List<Contact>> getAllContacts() { return allContacts;}
     public MutableLiveData<List<Contact>> getSearchResults() { return searchResults; }
     private void asyncFinished(List<Contact> results) { searchResults.setValue(results); }
 
-    //ASYNC QUERY
+
+    //ASYNC QUERY (Find)
     private static class QueryAsyncTask extends AsyncTask<String, Void, List<Contact>>
     {
         private String criterion;
         private ContactDao asyncTaskDao;
         private static ContactRepository delegate = null;
+
+        //Constructor
         QueryAsyncTask(ContactDao dao, String criterion)
         {
             this.criterion= criterion;
@@ -76,18 +78,15 @@ public class ContactRepository
         @Override
         protected List<Contact> doInBackground(final String... params)
         {
-            if (criterion == PHONE)
-                return asyncTaskDao.findPhone(params[0]);
-            else if (criterion == EMAIL)
-                return asyncTaskDao.findEmail(params[0]);
-            else return asyncTaskDao.findName(params[0]);
+            if (criterion == NAME) return asyncTaskDao.findName(params[0]);
+
+            else if (criterion == PHONE) return asyncTaskDao.findPhone(params[0]);
+
+            else return asyncTaskDao.findEmail(params[0]);
         }
 
         @Override
-        protected void onPostExecute(List<Contact> result)
-        {
-            delegate.asyncFinished(result);
-        }
+        protected void onPostExecute(List<Contact> result) { delegate.asyncFinished(result); }
     }
 
     //ASYNC INSERT

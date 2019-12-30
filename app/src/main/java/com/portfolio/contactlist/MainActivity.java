@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //OVERFLOW MENU OPTION SELECTED
+    //OVERFLOW MENU
     public boolean onOptionsItemSelected(MenuItem item)
     {
         contactName = (EditText)findViewById(R.id.contact_name);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //CLEAR - Calling fragment.clearFields() causes the application to crash
+    //Calling fragment.clearFields() causes the application to crash
     private void clearFields()
     {
         contactName.setText("");

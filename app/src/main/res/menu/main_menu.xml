@@ -8,9 +8,6 @@
         android:id="@+id/add_contact"
         android:title="@string/add_contact" />
     <item
-        android:id="@+id/find_contact"
-        android:title="@string/find_contact" />
-    <item
         android:id="@+id/sort_az"
         android:title="@string/sort_a_z" />
     <item

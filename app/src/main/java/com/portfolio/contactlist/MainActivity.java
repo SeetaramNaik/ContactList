@@ -61,10 +61,6 @@ public class MainActivity extends AppCompatActivity
                 else { toaster(this, "Enter contact info to add"); }
                 return true;
 
-            case R.id.find_contact:
-                findContact();
-                return true;
-
             case R.id.sort_az:
                 fragment.sort(false);
                 return true;
@@ -78,19 +74,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void findContact()
-    {
-        String name = contactName.getText().toString();
-        if (!name.equals(""))
-        {
-            fragment.findContact(name);
-            clearFields();
-        }
-        else { toaster(this, "You must enter a name to search for"); }
-
-    }
-
-    //CLEAR & FOCUS
+    //CLEAR - Calling fragment.clearFields() causes the application to crash
     private void clearFields()
     {
         contactName.setText("");

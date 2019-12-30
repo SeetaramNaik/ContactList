@@ -64,8 +64,8 @@ public class MainFragment extends Fragment
         });
     }
 
-    //CLEAR & FOCUS
-    private void clearFields()
+    //CLEAR - Cannot call non-static MainActivity.clearFields() from static Fragment
+    public void clearFields()
     {
         contactName.setText("");
         contactPhone.setText("");

@@ -22,6 +22,7 @@ public class MainFragment extends Fragment
     private EditText contactName;
     private EditText contactPhone;
     private EditText contactEmail;
+    private EditText contactGender;
     private FloatingActionButton fab;
 
     //CONSTRUCTOR
@@ -34,6 +35,7 @@ public class MainFragment extends Fragment
         return inflater.inflate(R.layout.main_fragment, container, false);
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -42,7 +44,10 @@ public class MainFragment extends Fragment
 
         contactName = (EditText)getView().findViewById(R.id.contact_name);
         contactPhone = (EditText)getView().findViewById(R.id.contact_phone);
-        contactEmail = (EditText)getView().findViewById(R.id.contact_email);
+        contactEmail = (EditText)getView().findViewById(R.id.contact_gender);
+
+        contactGender = (EditText) getView().findViewById(R.id.contact_gender);
+
         recyclerSetup();
         observerSetup();
 
@@ -54,6 +59,8 @@ public class MainFragment extends Fragment
                 String name = contactName.getText().toString();
                 String phone = contactPhone.getText().toString();
                 String email = contactEmail.getText().toString();
+
+                String gender = contactGender.getText().toString();
 
                 if (!name.equals("")) { mViewModel.findName(name); }
                 else if (!phone.equals("")) { mViewModel.findPhone(phone); }
@@ -70,6 +77,7 @@ public class MainFragment extends Fragment
         contactName.setText("");
         contactPhone.setText("");
         contactEmail.setText("");
+        contactGender.setText("");
         contactName.requestFocus();
     }
 
